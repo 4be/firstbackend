@@ -8,7 +8,7 @@ public class StudentService {
         return List.of(
                 new Student(
                         1L,
-                        "Ewe",
+                        "dan",
                         "Bash@gmail.com",
                         LocalDate.of(2000,01,5),
                         25
