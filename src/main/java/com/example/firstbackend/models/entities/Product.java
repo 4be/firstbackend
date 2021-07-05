@@ -1,34 +1,34 @@
 package com.example.firstbackend.models.entities;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "tbl_product")
-public class product implements Serializable {
+
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
-    private String desc;
-    private double price;
+    private String description;
+    private Double price;
 
-    public product() {
+    public Product() {
     }
 
-    public product(long id, String name, String desc, double price) {
+    public Product(Long id, String name, String description, Double price) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.price = price;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,21 +40,19 @@ public class product implements Serializable {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
-
-
