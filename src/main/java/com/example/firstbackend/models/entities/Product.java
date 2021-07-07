@@ -1,5 +1,6 @@
 package com.example.firstbackend.models.entities;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 //Menhubungkan Entity kelas ke dalam Table Menggunakan JPA
@@ -13,9 +14,11 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // untuk auto increment
     private Long id;                                    // set type data untuk table
 
+    @NotEmpty(message = ("Name is required"))
     @Column(name="product_name",length = 100)
     private String name;
 
+    @NotEmpty(message = ("Description is required"))
     @Column(name="product_description", length = 500)
     private String description;
 
