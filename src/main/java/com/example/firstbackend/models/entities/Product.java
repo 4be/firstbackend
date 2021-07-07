@@ -2,18 +2,26 @@ package com.example.firstbackend.models.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
+//Menhubungkan Entity kelas ke dalam Table Menggunakan JPA
 @Entity
-@Table(name = "tbl_product")
-
+@Table(name = "tbl_product") //JPA akan check ke class yang terhubung dibawah
 public class Product implements Serializable {
 
+    private static final Long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // untuk auto increment
+    private Long id;                                    // set type data untuk table
+
+    @Column(name="product_name",length = 100)
     private String name;
+
+    @Column(name="product_description", length = 500)
     private String description;
+
     private Double price;
 
+    //SET constructor kosong & berisi penuh + setter getter ( kalau pake lombok tidak perlu)
     public Product() {
     }
 
