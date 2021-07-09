@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ public class ProductServices {
     @Autowired
     private ProductRepo productRepo;
 
+    @Autowired
+    private SupplierService supplierService;
     // kalau sudah ada primary key/ID dia dianggap update oleh JPA jika tidak ada maka CREATE
     public Product save(Product product){
         return productRepo.save(product);
@@ -38,9 +41,6 @@ public class ProductServices {
         productRepo.deleteById(id);
     }
 
-    public List<Product> FindByName(String name){
-        return productRepo.findByNameContains(name);
-    }
 
     public void addSupplier(Supplier supplier,Long productId){
         Product product = findone(productId);
@@ -50,5 +50,26 @@ public class ProductServices {
         product.getSuppliers().add(supplier);
         save(product);
     }
+
+    public Product findByProductName(String name){
+        return productRepo.findProductByName(name);
+    }
+
+    public List<Product> findByProductSmiliar(String name){
+        return productRepo.findProductSmiliar(name+"%");
+    }
+
+    public List<Product> findByCategoryId(Long categoryId){
+        return productRepo.findProductByCategory(categoryId);
+    }
+
+    public List<Product> findBySupplier(Long supplierId){
+        Supplier supplier = supplierService.findOne(supplierId);
+        if(supplier == null){
+            return new ArrayList<Product>();
+        }
+        return productRepo.findProdcutBySupplier(supplier);
+    }
+
 
 }

@@ -1,7 +1,9 @@
 package com.example.firstbackend.controllers;
 
 import com.example.firstbackend.dto.ResponseData;
+import com.example.firstbackend.dto.SearchData;
 import com.example.firstbackend.models.entities.Product;
+import com.example.firstbackend.models.entities.Supplier;
 import com.example.firstbackend.services.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 // Controller -> Services -> Repo
 
@@ -71,9 +74,29 @@ public class ProductController {
         productServices.removeOne(x);
     }
 
-    @PostMapping // as
-    public void addSupplier(@RequestBody){
+    @PostMapping("/{id}") // asumsi input melalui drop down
+    public void addSupplier(@RequestBody Supplier supplier, @PathVariable("id") Long productId){
+        productServices.addSupplier(supplier, productId);
+    }
 
+    @PostMapping("/search/name") //POST MAPPING AKAN DI SIMPAN DI REQBODY & GETMAPPING DARI PATH VARIABLE
+    public Product getProductByName(@RequestBody SearchData searchData){
+        return productServices.findByProductName(searchData.getSearchKey());
+    }
+
+    @PostMapping("/search/smiliarname") //POST MAPPING AKAN DI SIMPAN DI REQBODY & GETMAPPING DARI PATH VARIABLE
+    public List<Product> getProductBySmiliar(@RequestBody SearchData searchData){
+        return productServices.findByProductSmiliar(searchData.getSearchKey());
+    }
+
+    @GetMapping("/search/category/{categoryId}")
+    public List<Product> getProductByCategory(@PathVariable("categoryId") Long categoryId){
+        return  productServices.findByCategoryId(categoryId);
+    }
+
+    @GetMapping("/search/supplier/{supplierId}")
+    public List<Product> getProductBySupplier(@PathVariable("supplierId") Long supplierId){
+        return  productServices.findBySupplier(supplierId);
     }
 
 }
