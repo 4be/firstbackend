@@ -1,6 +1,7 @@
 package com.example.firstbackend.services;
 
 import com.example.firstbackend.models.entities.Product;
+import com.example.firstbackend.models.entities.Supplier;
 import com.example.firstbackend.models.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,15 @@ public class ProductServices {
 
     public List<Product> FindByName(String name){
         return productRepo.findByNameContains(name);
+    }
+
+    public void addSupplier(Supplier supplier,Long productId){
+        Product product = findone(productId);
+        if(product==null){
+            throw new RuntimeException("Product with ID : "+productId+" not found");
+        }
+        product.getSuppliers().add(supplier);
+        save(product);
     }
 
 }
